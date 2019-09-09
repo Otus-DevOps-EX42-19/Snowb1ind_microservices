@@ -1,1 +1,4 @@
-sha256:ffa352c5f36c44fb12a23c4ec845a878f20bf7415b7abb371223a73e222f98c3
+REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
+snowb1ind/ubuntu-tmp-file   latest              ffa352c5f36c        20 minutes ago      120MB
+ubuntu                      16.04               5e13f8dd4c1a        6 weeks ago         120MB
+hello-world                 latest              fce289e99eb9        8 months ago        1.84kB

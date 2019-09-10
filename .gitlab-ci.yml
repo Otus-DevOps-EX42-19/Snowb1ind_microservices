@@ -10,7 +10,7 @@ variables:
 
 before_script:
   - apt-get update
-  - apt-get install ruby-dev
+  - apt-get install -y ruby-dev
   - cd reddit
   - bundle install
 

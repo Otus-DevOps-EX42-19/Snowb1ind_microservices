@@ -9,8 +9,8 @@ variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
 before_script:
-  - sudo apt-get update
-  - sudo apt-get install ruby-dev
+  - apt-get update
+  - apt-get install ruby-dev
   - cd reddit
   - bundle install
 

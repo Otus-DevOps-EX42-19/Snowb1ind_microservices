@@ -10,8 +10,7 @@ variables:
 
 before_script:
   - apt-get update
-  - apt-get upgrade -y
-  - apt-get install -y ruby-all-dev make ruby-dev libgmp-dev
+  - apt-get install -y --install-suggests ruby-all-dev make ruby-dev libgmp-dev
   - cd reddit
   - bundle install
 

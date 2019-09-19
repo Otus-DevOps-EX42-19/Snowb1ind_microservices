@@ -1,0 +1,67 @@
+version: '3.3'
+services:
+  post_db:
+    image: mongo:${MONGO_V}
+    networks:
+      - back_net
+    env_file:
+      - .env
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}    
+
+  post:
+    image: ${USERNAME}/post:${CONT_TAG}
+    networks:
+      - back_net
+      - front_net
+    env_file:
+      - .env
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
+
+  ui:
+    image: ${USERNAME}/ui:${CONT_TAG}
+    ports:
+      - ${UI_PORT}:${UI_PORT}/tcp
+    networks:
+      - front_net
+    env_file:
+      - .env
+    environment:
+      - POST_SERVICE_HOST=post
+      - POST_SERVICE_PORT=5000
+      - COMMENT_SERVICE_HOST=comment
+      - COMMENT_SERVICE_PORT=9292
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    depends_on:
+      - post
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
+
+  comment:
+    image: ${USERNAME}/comment:${CONT_TAG}
+    networks:
+      - back_net
+      - front_net
+    env_file:
+      - .env
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+
+volumes:
+  post_db:
+
+networks:
+  reddit:
+  front_net:
+    driver: bridge
+  back_net:
+    driver: bridge
